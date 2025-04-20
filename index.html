@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Budget Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+            overflow: hidden;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #343a40;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+        }
+        input[type="number"], input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"], input[type="button"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #218838;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .role-button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .role-button:hover {
+            background-color: #0056b3;
+        }
+        .timer {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>School Budget Management</h1>
+</header>
+
+<nav>
+    <a href="#home" onclick="showSection('home')">Home</a>
+    <a href="#polls" onclick="showSection('polls')">Polls</a>
+    <a href="#calculator" onclick="showSection('calculator')">Budget Calculator</a>
+    <a href="#info" onclick="showSection('info')">Additional Info</a>
+</nav>
+
+<div class="container">
+    <div id="home" class="section">
+        <h2>Welcome to the School Budget Management Site</h2>
+        <p>This site aims to gather opinions through polls and provide tools for budget calculation to ensure transparency and effective resource allocation.</p>
+    </div>
+
+    <div id="polls" class="section hidden">
+        <h2>Polls</h2>
+        <div id="dailyPoll">
+            <h3>Daily Poll: Importance Rating</h3>
+            <div class="timer" id="dailyTimer"></div>
+            <form id="dailyPollForm">
+                <label for="dailyEnglish">English:</label>
+                <input type="number" id="dailyEnglish" name="dailyEnglish" min="1" max="10" required>
+                <label for="dailyMath">Math:</label>
+                <input type="number" id="dailyMath" name="dailyMath" min="1" max="10" required>
+                <label for="dailySocialStudies">Social Studies:</label>
+                <input type="number" id="dailySocialStudies" name="dailySocialStudies" min="1" max="10" required>
+                <label for="dailyScience">Science:</label>
+                <input type="number" id="dailyScience" name="dailyScience" min="1" max="10" required>
+                <label for="dailyGym">Gym:</label>
+                <input type="number" id="dailyGym" name="dailyGym" min="1" max="10" required>
+                <label for="dailyLanguage">Language:</label>
+                <input type="number" id="dailyLanguage" name="dailyLanguage" min="1" max="10" required>
+                <label for="dailySpecialEducation">Special Education:</label>
+                <input type="number" id="dailySpecialEducation" name="dailySpecialEducation" min="1" max="10" required>
+                <label for="dailyLibrary">Library:</label>
+                <input type="number" id="dailyLibrary" name="dailyLibrary" min="1" max="10" required>
+                <label for="dailyCounseling">Counseling:</label>
+                <input type="number" id="dailyCounseling" name="dailyCounseling" min="1" max="10" required>
+                <label for="dailyTips">Any Other Tips:</label>
+                <input type="text" id="dailyTips" name="dailyTips">
+                <input type="submit" value="Submit Daily Poll">
+            </form>
+            <div class="results" id="dailyPollResults"></div>
+        </div>
+
+        <div id="biweeklyPoll">
+            <h3>Biweekly Poll: Importance Rating</h3>
+            <div class="timer" id="biweeklyTimer"></div>
+            <form id="biweeklyPollForm">
+                <label for="biweeklyEnglish">English:</label>
+                <input type="number" id="biweeklyEnglish" name="biweeklyEnglish" min="1" max="10" required>
+                <label for="biweeklyMath">Math:</label>
+                <input type="number" id="biweeklyMath" name="biweeklyMath" min="1" max="10" required>
+                <label for="biweeklySocialStudies">Social Studies:</label>
+                <input type="number" id="biweeklySocialStudies" name="biweeklySocialStudies" min="1" max="10" required>
+                <label for="biweeklyScience">Science:</label>
+                <input type="number" id="biweeklyScience" name="biweeklyScience" min="1" max="10" required>
+                <label for="biweeklyGym">Gym:</label>
+                <input type="number" id="biweeklyGym" name="biweeklyGym" min="1" max="10" required>
+                <label for="biweeklyLanguage">Language:</label>
+                <input type="number" id="biweeklyLanguage" name="biweeklyLanguage" min="1" max="10" required>
+                <label for="biweeklySpecialEducation">Special Education:</label>
+                <input type="number" id="biweeklySpecialEducation" name="biweeklySpecialEducation" min="1" max="10" required>
+                <label for="biweeklyLibrary">Library:</label>
+                <input type="number" id="biweeklyLibrary" name="biweeklyLibrary" min="1" max="10" required>
+                <label for="biweeklyCounseling">Counseling:</label>
+                <input type="number" id="biweeklyCounseling" name="biweeklyCounseling" min="1" max="10" required>
+                <label for="biweeklyTips">Any Other Tips:</label>
+                <input type="text" id="biweeklyTips" name="biweeklyTips">
+                <input type="submit" value="Submit Biweekly Poll">
+            </form>
+            <div class="results" id="biweeklyPollResults"></div>
+        </div>
+    </div>
+
+    <div id="calculator" class="section hidden">
+        <h2>Budget Calculator</h2>
+        <div id="studentTeacherCalculator">
+            <label for="studentTeacherBudget">Total Budget:</label>
+            <input type="number" id="studentTeacherBudget" required>
+            <input type="button" value="Calculate Budget Based on Poll Results" onclick="calculateStudentTeacherBudget()">
+            <div class="results" id="studentTeacherBudgetResult"></div>
+        </div>
+        <div id="adminCalculator" class="hidden">
+            <label for="adminTotalBudget">Total Budget:</label>
+            <input type="number" id="adminTotalBudget" required>
+            <label for="adminSavings">Amount Allocated for Savings:</label>
+            <input type="number" id="adminSavings" required>
+            <input type="button" value="Generate Budget Based on Biweekly Poll Results" onclick="calculateAdminBudget()">
+            <div class="results" id="adminBudgetResult"></div>
+        </div>
+    </div>
+
+    <div id="info" class="section hidden">
+        <h2>Additional Information</h2>
+        <p>This section is for any additional information you wish to add.</p>
+    </div>
+</div>
+
+<div class="overlay" id="roleOverlay">
+    <h2 id="welcomeMessage">Welcome to our YPAR budget website</h2>
+    <p id="currentTime"></p>
+    <button class="role-button" onclick="showRoleSelection()">Okay</button>
+    <div class="hidden" id="roleSelection">
+        <h2>Please select your role:</h2>
+        <button class="role-button" onclick="setUserRole('Student')">Student</button>
+        <button class="role-button" onclick="setUserRole('Teacher')">Teacher</button>
+        <button class="role-button" onclick="setUserRole('Administrator')">Administrator</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let userRole = '';
+        let dailyPollEndTime = new Date();
+        let biweeklyPollEndTime = new Date();
+        dailyPollEndTime.setHours(23, 59, 59, 999); // Set daily poll to end at 11:59:59 PM
+        biweeklyPollEndTime.setDate(14); // Set biweekly poll to end on the 14th of the month
+
+        // Function to set user role and hide the overlay
+        window.setUserRole = function(role) {
+            userRole = role;
+            document.getElementById('roleOverlay').style.display = 'none'; // Hide the overlay
+            showSection('polls'); // Show polls section
+            // Role-specific visibility logic...
+            if (userRole === 'Student' || userRole === 'Teacher') {
+                document.getElementById('studentTeacherCalculator').style.display = 'block';
+                document.getElementById('adminCalculator').style.display = 'none';
+            } else if (userRole === 'Administrator') {
+                document.getElementById('adminCalculator').style.display = 'block';
+                document.getElementById('studentTeacherCalculator').style.display = 'none';
+            }
+        };
+
+        // Function to show a specific section
+        window.showSection = function(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('hidden'); // Hide all sections
+            });
+            document.getElementById(sectionId).classList.remove('hidden'); // Show the selected section
+        };
+
+        // Function to show role selection buttons
+        window.showRoleSelection = function() {
+            document.getElementById('currentTime').style.display = 'none'; // Hide the current time
+            document.getElementById('welcomeMessage').style.display = 'none'; // Hide the welcome message
+            document.getElementById('roleOverlay').querySelector('.role-button').style.display = 'none'; // Hide the Okay button
+            document.getElementById('roleSelection').classList.remove('hidden'); // Show role selection
+        };
+
+        // Poll timer
+        function updateTimers() {
+            const now = new Date();
+            const dailyTimeLeft = dailyPollEndTime - now;
+            const biweeklyTimeLeft = biweeklyPollEndTime - now;
+
+            if (dailyTimeLeft > 0) {
+                const hours = Math.floor((dailyTimeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((dailyTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((dailyTimeLeft % (1000 * 60)) / 1000);
+                document.getElementById('dailyTimer').innerText = `Daily Poll ends in: ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById('dailyTimer').innerText = 'Daily Poll has ended.';
+            }
+
+            if (biweeklyTimeLeft > 0) {
+                const days = Math.floor(biweeklyTimeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((biweeklyTimeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((biweeklyTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((biweeklyTimeLeft % (1000 * 60)) / 1000);
+                document.getElementById('biweeklyTimer').innerText = `Biweekly Poll ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById('biweeklyTimer').innerText = 'Biweekly Poll has ended.';
+            }
+        }
+
+        // Update timers every second
+        setInterval(updateTimers, 1000);
+
+        // Function to display current time on page load
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000); // Update every second
+
+        // Function to update the current time display
+        function updateCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours() % 12 || 12; // Convert to 12-hour format
+            const minutes = now.getMinutes();
+            document.getElementById('currentTime').innerText = `It is ${hours}:${minutes < 10 ? '0' : ''}${minutes} ${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+        }
+    });
+</script>
+
+</body>
+</html>
